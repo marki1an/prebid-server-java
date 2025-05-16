@@ -44,7 +44,7 @@ jobs:
         run: |
           echo "Test Results:"
           cat "${{ steps.test-results.outputs.content }}"
-          cat "build_output.txt'
+          cat build_output.txt
 
       - name: Show contents of GITHUB_OUTPUT (debug)
         run: cat $GITHUB_OUTPUT
