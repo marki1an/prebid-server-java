@@ -25,7 +25,6 @@ jobs:
           java-version: ${{ matrix.java }}
 
       - name: Build with Maven
-        run: mvn -B verify -DskipUnitTests=true -DskipModuleFunctionalTests=true -Dtests.max-container-count=5 -DdockerfileName=Dockerfile --file extra/pom.xml
         id: build
         run: |
           set +e
@@ -37,21 +36,13 @@ jobs:
           --file extra/pom.xml | tee build_output.txt
           result=${PIPESTATUS[0]}
           echo "exit_code=$result" >> "$GITHUB_OUTPUT"
-      - name: Extract Failsafe Failures
-        if: steps.build.outputs.exit_code != '0'
-        run: |
-          echo "Looking for failed functional tests..."
-          mkdir -p failsafe-failures
-          find . -type f -path "*/failsafe-reports/*.txt" -exec cp {} failsafe-failures/ \;
 
-          echo "=== All failsafe reports ==="
-          cat failsafe-failures/* || echo "No failsafe reports found."
-          
-          echo "=== Filtering for failures ==="
-          grep -E "Tests run: [0-9]+, Failures: [1-9][0-9]*" failsafe-failures/* > test_failures.txt || echo "No obvious test failures found."
-          
-          echo "=== Summary of test failures ==="
-          cat test_failures.txt || echo "No test failures summary available."
+      - name: Upload full build output
+        if: steps.build.outputs.exit_code != '0'
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build_output.txt
 
       - name: Read test failures into output
         id: test-results
