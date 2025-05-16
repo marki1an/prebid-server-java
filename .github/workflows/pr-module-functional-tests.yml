@@ -49,7 +49,7 @@ jobs:
         if: steps.build.outputs.exit_code != '0'
         run: |
           sed -n '/\[ERROR\] Failures:/,/\[ERROR\] Tests run:/p' build_output.txt > test_failures.txt
-          echo "❌ **Java CI Build Failed - Test Failures**" > comment.txt
+          echo "❌ **Functional Test Failures**" > comment.txt
           echo '' >> comment.txt
           echo '```' >> comment.txt
           cat test_failures.txt >> comment.txt
