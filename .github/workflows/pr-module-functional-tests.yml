@@ -42,11 +42,6 @@ jobs:
 
       - name: Debug
         run: |
-          echo "my_output<<EOF" >> $GITHUB_OUTPUT
-          echo "This is" >> $GITHUB_OUTPUT
-          echo "a multiline output" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-          echo "Debug: wrote multiline output to GITHUB_OUTPUT"
           echo "Test Results:"
           cat "${{ steps.test-results.outputs.content }}"
           cat "build_output.txt'
