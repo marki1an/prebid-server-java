@@ -48,7 +48,8 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
           echo "Debug: wrote multiline output to GITHUB_OUTPUT"
           echo "Test Results:"
-          echo "${{ steps.test-results.outputs.content }}"
+          cat "${{ steps.test-results.outputs.content }}"
+          cat "build_output.txt'
 
       - name: Show contents of GITHUB_OUTPUT (debug)
         run: cat $GITHUB_OUTPUT
@@ -70,6 +71,7 @@ jobs:
           echo "content<<EOF" >> $GITHUB_OUTPUT
           echo "$content" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Comment test failures on PR
         if: steps.build.outputs.exit_code != '0'
         uses: peter-evans/create-or-update-comment@v4
