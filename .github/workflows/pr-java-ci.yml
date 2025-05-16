@@ -1,4 +1,5 @@
 name: Java CI
+
 on:
   pull_request:
     paths-ignore:
@@ -9,14 +10,18 @@ on:
   release:
     types:
       - created
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         java: [ 21 ]
+
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
@@ -26,21 +31,4 @@ jobs:
           java-version: ${{ matrix.java }}
 
       - name: Build with Maven
-        id: build
-        run: |
-          mvn -B package --file extra/pom.xml | tee build_output.txt
-          echo "exit_code=$result" >> "$GITHUB_OUTPUT"
-      - name: Format build output for PR comment
-        if: steps.build.outputs.exit_code != '0'
-        run: |
-          echo '```' >> build_output.txt
-      - name: Comment on PR with build failure output
-        if: steps.build.outputs.exit_code != '0'
-        uses: peter-evans/create-or-update-comment@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ github.event.pull_request.number }}
-          body-path: comment.txt
-      - name: Fail if error is found in logs
-        if: steps.build.outputs.exit_code != '0'
-        run: exit 1
+        run: mvn -B package --file extra/pom.xml
