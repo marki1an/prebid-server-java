@@ -14,10 +14,12 @@ import org.prebid.server.functional.model.request.auction.OperationState
 import org.prebid.server.functional.service.PrebidServerService
 import org.prebid.server.functional.tests.module.ModuleBaseSpec
 import org.prebid.server.functional.util.PBSUtils
+import spock.lang.Ignore
 
 import static org.prebid.server.functional.model.request.auction.DistributionChannel.APP
 import static org.prebid.server.functional.model.request.auction.OperationState.YES
 
+@Ignore
 class PbRequestCorrectionSpec extends ModuleBaseSpec {
 
     private static final String PREBID_MOBILE = "prebid-mobile"

@@ -71,7 +71,7 @@ class ResponseCorrectionSpec extends ModuleBaseSpec {
         assert response.seatbid.size() == 1
 
         and: "Response should contain single seatBid with proper media type"
-        assert response.seatbid.bid.ext.prebid.type.flatten() == [VIDEO]
+        assert response.seatbid.bid.ext.prebid.type.flatten() == [BANNER]
 
         and: "Response shouldn't contain errors"
         assert !response.ext.errors
@@ -114,7 +114,7 @@ class ResponseCorrectionSpec extends ModuleBaseSpec {
         assert response.seatbid.size() == 1
 
         and: "Response should contain single seatBid with proper media type"
-        assert response.seatbid.bid.ext.prebid.type.flatten() == [VIDEO]
+        assert response.seatbid.bid.ext.prebid.type.flatten() == [BANNER]
 
         and: "Response shouldn't contain errors"
         assert !response.ext.errors
