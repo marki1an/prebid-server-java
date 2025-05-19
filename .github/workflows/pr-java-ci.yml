@@ -45,7 +45,7 @@ jobs:
               echo ""
               echo '```'
               sed -n '/\[INFO\] Starting audit\.\.\./,/Audit done\./p' build_output.txt | sed '0,/Audit done\./d'
-               echo '```'
+              echo '```'
           } > comment.txt
           else
             {
