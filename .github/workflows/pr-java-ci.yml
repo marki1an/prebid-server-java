@@ -44,7 +44,8 @@ jobs:
               echo "❌ **Checkstyle Issues Detected**"
               echo ""
               echo '```'
-              sed -n '/\[INFO\Starting audit\.\.\./,/Audit done\./p' build_output.txt '
+              # Extract audit section and skip the first line to avoid redundancy
+              sed -n '/\[INFO\] Starting audit\.\.\./,/Audit done\./p' build_output.txt | tail -n +2
               echo '```'
             } > comment.txt
           else
