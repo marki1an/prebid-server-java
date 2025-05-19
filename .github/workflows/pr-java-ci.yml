@@ -39,7 +39,7 @@ jobs:
       - name: Format build output for PR comment
         if: steps.build.outputs.exit_code != '0'
         run: |
-          if grep -q '\[INFO\] Starting audit\.\.\.' build_output.txt; then
+          if grep -q 'Starting audit\.\.\.' build_output.txt; then
             {
               echo "❌ **Checkstyle Issues Detected**"
               echo ""
