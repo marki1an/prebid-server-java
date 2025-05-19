@@ -31,7 +31,10 @@ jobs:
           java-version: ${{ matrix.java }}
 
       - name: Build with Maven
-        run: mvn -B package --file extra/pom.xml
+        id: build
+        run: |
+          mvn -B package --file extra/pom.xml | tee build_output.txt
+          echo "exit_code=$result" >> "$GITHUB_OUTPUT"
 
       - name: Format build output for PR comment
         if: steps.build.outputs.exit_code != '0'
@@ -53,7 +56,7 @@ jobs:
               echo '```'
             } > comment.txt
           fi
-          
+
       - name: Comment on PR with build failure output
         if: steps.build.outputs.exit_code != '0'
         uses: peter-evans/create-or-update-comment@v4
