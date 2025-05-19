@@ -45,7 +45,7 @@ jobs:
               echo ""
               echo '```'
               # Extract audit section and skip the first line to avoid redundancy
-              sed -n '/\[INFO\] Starting audit\.\.\./,/Audit done\./p' build_output.txt | tail -n +2
+              awk '/\[INFO\] Starting audit\.\.\./, /Audit done\./' build_output.txt > comment.txt
               echo '```'
             } > comment.txt
           else
