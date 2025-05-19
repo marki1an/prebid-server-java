@@ -44,8 +44,7 @@ jobs:
               echo "❌ **Checkstyle Issues Detected**"
               echo ""
               echo '```'
-              # Extract audit section and skip the first line to avoid redundancy
-              awk '/\[INFO\] Starting audit\.\.\./, /Audit done\./' build_output.txt > comment.txt
+              sed -n '/\[INFO\Starting audit\.\.\./,/Audit done\./p' build_output.txt
               echo '```'
             } > comment.txt
           else
