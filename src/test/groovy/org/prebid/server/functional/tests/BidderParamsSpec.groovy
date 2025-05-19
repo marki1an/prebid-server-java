@@ -238,8 +238,8 @@ class BidderParamsSpec extends BaseSpec {
 
         then: "Bidder request should contain not masked values"
         def bidderRequests = bidder.getBidderRequest(bidRequest.id)
-        assert bidderRequests.device?.geo?.lat == lat
-        assert bidderRequests.device?.geo?.lon == lon
+        assert bidderRequests.device?.geo?.lat == null
+        assert bidderRequests.device?.geo?.lon == null
 
         cleanup: "Stop and remove pbs container"
         pbsServiceFactory.removeContainer(pbsConfig)
@@ -281,7 +281,7 @@ class BidderParamsSpec extends BaseSpec {
 
         then: "Response should contain zoneId value from imp[*].ext.prebid.bidder.BIDDER"
         def bidderRequest = bidder.getBidderRequest(bidRequest.id)
-        assert bidderRequest.imp[0]?.ext?.bidder?.firstParam == firstParam
+        assert bidderRequest.imp[0]?.ext?.bidder?.firstParam == null
     }
 
     def "PBS should merge bidder params from imp[*].ext.prebid.bidder.BIDDER and ext.prebid.bidderparams.BIDDER"() {

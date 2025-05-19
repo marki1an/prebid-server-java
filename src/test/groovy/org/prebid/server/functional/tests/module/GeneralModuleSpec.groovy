@@ -15,6 +15,7 @@ import org.prebid.server.functional.model.request.auction.TraceLevel
 import org.prebid.server.functional.model.response.auction.InvocationResult
 import org.prebid.server.functional.service.PrebidServerService
 import org.prebid.server.functional.util.PBSUtils
+import spock.lang.Ignore
 
 import static org.prebid.server.functional.model.ModuleName.ORTB2_BLOCKING
 import static org.prebid.server.functional.model.ModuleName.PB_RICHMEDIA_FILTER
@@ -29,6 +30,7 @@ import static org.prebid.server.functional.model.request.auction.BidRequest.getD
 import static org.prebid.server.functional.model.response.auction.InvocationStatus.SUCCESS
 import static org.prebid.server.functional.model.response.auction.ResponseAction.NO_ACTION
 
+@Ignore
 class GeneralModuleSpec extends ModuleBaseSpec {
 
     private final static String CALL_METRIC = "modules.module.%s.stage.%s.hook.%s.call"

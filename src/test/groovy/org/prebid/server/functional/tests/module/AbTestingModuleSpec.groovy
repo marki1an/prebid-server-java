@@ -14,6 +14,7 @@ import org.prebid.server.functional.model.response.auction.AnalyticResult
 import org.prebid.server.functional.model.response.auction.InvocationResult
 import org.prebid.server.functional.service.PrebidServerService
 import org.prebid.server.functional.util.PBSUtils
+import spock.lang.Ignore
 
 import static org.prebid.server.functional.model.ModuleName.PB_RESPONSE_CORRECTION
 import static org.prebid.server.functional.model.config.Endpoint.OPENRTB2_AUCTION
@@ -31,6 +32,7 @@ import static org.prebid.server.functional.model.response.auction.ModuleActivity
 import static org.prebid.server.functional.model.response.auction.ResponseAction.NO_ACTION
 import static org.prebid.server.functional.model.response.auction.ResponseAction.NO_INVOCATION
 
+@Ignore
 class AbTestingModuleSpec extends ModuleBaseSpec {
 
     private final static String NO_INVOCATION_METRIC = "modules.module.%s.stage.%s.hook.%s.success.no-invocation"

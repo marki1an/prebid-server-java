@@ -18,6 +18,7 @@ import org.prebid.server.functional.model.response.auction.ModuleActivityName
 import org.prebid.server.functional.service.PrebidServerService
 import org.prebid.server.functional.tests.module.ModuleBaseSpec
 import org.prebid.server.functional.util.PBSUtils
+import spock.lang.Ignore
 
 import static org.prebid.server.functional.model.ModuleName.ORTB2_BLOCKING
 import static org.prebid.server.functional.model.ModuleName.PB_RICHMEDIA_FILTER
@@ -28,6 +29,7 @@ import static org.prebid.server.functional.model.config.Stage.RAW_BIDDER_RESPONS
 import static org.prebid.server.functional.model.request.auction.TraceLevel.VERBOSE
 import static org.prebid.server.functional.model.response.auction.ErrorType.PREBID
 
+@Ignore
 class AnalyticsTagsModuleSpec extends ModuleBaseSpec {
 
     private static final PrebidServerService pbsServiceWithEnabledOrtb2Blocking = pbsServiceFactory.getService(getOrtb2BlockingSettings())

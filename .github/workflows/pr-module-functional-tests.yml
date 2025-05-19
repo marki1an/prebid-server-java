@@ -1,5 +1,4 @@
 name: Module functional tests
-
 on:
   pull_request:
     paths-ignore:
@@ -10,27 +9,60 @@ on:
   release:
     types:
       - created
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         java: [ 21 ]
-
     steps:
       - uses: actions/checkout@v4
-
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           cache: 'maven'
           java-version: ${{ matrix.java }}
-
       - name: Build with Maven
         run: mvn package -DskipUnitTests=true --file extra/pom.xml
 
       - name: Run module tests
-        run: mvn -B verify -DskipUnitTests=true -DskipFunctionalTests=true -DskipModuleFunctionalTests=false -Dtests.max-container-count=5 -DdockerfileName=Dockerfile-modules --file extra/pom.xml
+        id: build
+        run: |
+          set +e
+          mvn -B verify \
+          -DskipUnitTests=true \
+          -DskipFunctionalTests=true \
+          -DskipModuleFunctionalTests=false \
+          -Dtests.max-container-count=5 \
+          -DdockerfileName=Dockerfile-modules \
+          --file extra/pom.xml | tee build_output.txt
+          result=${PIPESTATUS[0]}
+          echo "exit_code=$result" >> "$GITHUB_OUTPUT"
+
+      - name: Debug
+        run: |
+          echo "Test Results:"
+          cat build_output.txt
+
+      - name: Format build output for PR comment
+        if: steps.build.outputs.exit_code != '0'
+        run: |
+          sed -n '/\[ERROR\] Failures:/,/\[ERROR\] Tests run:/p' build_output.txt > test_failures.txt
+          echo "❌ **Functional Test Failures**" > comment.txt
+          echo '' >> comment.txt
+          echo '```' >> comment.txt
+          cat test_failures.txt >> comment.txt
+          echo '```' >> comment.txt
+
+      - name: Comment on PR with build failure output
+        if: steps.build.outputs.exit_code != '0'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body-path: comment.txt
+
+      - name: Fail if error is found in logs
+        if: steps.build.outputs.exit_code != '0'
+        run: exit 1

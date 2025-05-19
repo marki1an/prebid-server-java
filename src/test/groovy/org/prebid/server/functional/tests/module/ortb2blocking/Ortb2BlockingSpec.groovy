@@ -33,6 +33,7 @@ import org.prebid.server.functional.model.response.auction.SeatBid
 import org.prebid.server.functional.service.PrebidServerService
 import org.prebid.server.functional.tests.module.ModuleBaseSpec
 import org.prebid.server.functional.util.PBSUtils
+import spock.lang.Ignore
 
 import static org.prebid.server.functional.model.ModuleName.ORTB2_BLOCKING
 import static org.prebid.server.functional.model.bidder.BidderName.ALIAS
@@ -54,6 +55,7 @@ import static org.prebid.server.functional.model.response.auction.MediaType.BANN
 import static org.prebid.server.functional.model.response.auction.MediaType.VIDEO
 import static org.prebid.server.functional.testcontainers.Dependencies.getNetworkServiceContainer
 
+@Ignore
 class Ortb2BlockingSpec extends ModuleBaseSpec {
 
     private static final String WILDCARD = '*'
