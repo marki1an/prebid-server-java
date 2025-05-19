@@ -57,6 +57,13 @@ jobs:
             } > comment.txt
           fi
 
+      - name: Print comment.txt content
+        if: always()  # Ensures this runs even if a previous step failed
+        run: |
+          echo "------ comment.txt content ------"
+          cat comment.txt || echo "comment.txt not found"
+          echo "--------------------------------"
+
       - name: Comment on PR with build failure output
         if: steps.build.outputs.exit_code != '0'
         uses: peter-evans/create-or-update-comment@v4
